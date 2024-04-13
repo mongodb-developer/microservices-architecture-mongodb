@@ -54,9 +54,23 @@ export MONGODB_URI_2="ATLAS_URI_HERE"
 
 ### Start Spring Boot projects
 
-You need to open five terminals: one for each folder. Then you can start the Spring Boot projects.
+Open five terminals: one for each folder.
 
-Start with the config-server as the microservices need this one running to be able to retrieve their configuration.
+Before we start the microservices, we need to retrieve their [config repository](https://github.com/mongodb-developer/microservices-architecture-mongodb-config-repo): 
+
+```bash
+git clone git@github.com:mongodb-developer/microservices-architecture-mongodb-config-repo.git
+```
+
+Update the file [config-server/src/main/resources/application.properties](config-server%2Fsrc%2Fmain%2Fresources%2Fapplication.properties) so this property points to the config repo.
+
+```properties
+spring.cloud.config.server.git.uri=${HOME}/Work/microservices-architecture-mongodb-config-repo
+```
+
+Now we can start the Spring Boot projects.
+
+Start with the `config-server` as the microservices need this one running to be able to retrieve their configuration.
 
 ```bash
 cd config-server
@@ -70,11 +84,13 @@ mvn clean spring-boot:run
 
 ```bash
 cd company-service
+export MONGODB_URI_1="ATLAS_URI_HERE" # optional
 mvn clean spring-boot:run
 ```
 
 ```bash
 cd employee-service
+export MONGODB_URI_2="ATLAS_URI_HERE" # optional
 mvn clean spring-boot:run
 ```
 
