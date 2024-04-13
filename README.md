@@ -2,50 +2,95 @@
 
 This repository contains a set of templates to help you create a Java Spring Boot microservices architecture with MongoDB.
 
-## Example API Calls
+In this repo you'll find: 
 
-### Companies
+- A config-server on port 8888
+- A service-registry on port 8761
+- An api-gateway on port 8080
+- Two microservices:
+  - company-service on port 8081
+  - employee-service on port 8082
+
+## Prerequisites
+
+- Docker (for local ephemeral MongoDB nodes or you can use MongoDB Atlas)
+- Java 21
+- Maven 3.6.3+
+
+## Getting Started
+
+### MongoDB
+
+Microservices are supposed to be independent of each others. For this reason, we need two MongoDB instances: one for each microservice.
+
+**With Docker** 
+
+The following script will start two local single node replica set nodes on port 27017 and 27018.
+```bash
+./1_docker-start-mongodb.sh
+```
+
+When you are done:
 
 ```bash
-curl -X 'POST' \
-  'http://localhost:8080/api/company' \
-  -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "name": "MongoDB",
-  "headquarters": "New York",
-  "created": "2009-02-11"
-}'
+./3_docker-stop-mongodb.sh
+```
+
+**With MongoDB Atlas**
+
+You can create two tests clusters on MongoDB Atlas and overwrite the default MongoDB URIs before starting the two microservices.
+
+For the `company_service` use:
+
+```bash
+export MONGODB_URI_1="ATLAS_URI_HERE"
+```
+
+For the `employee_service` use:
+
+```bash
+export MONGODB_URI_2="ATLAS_URI_HERE"
+```
+
+### Start Spring Boot projects
+
+You need to open five terminals: one for each folder. Then you can start the Spring Boot projects.
+
+Start with the config-server as the microservices need this one running to be able to retrieve their configuration.
+
+```bash
+cd config-server
+mvn clean spring-boot:run
 ```
 
 ```bash
-curl -X 'GET' 'http://localhost:8080/api/companies' -H 'accept: */*'
+cd service-registry
+mvn clean spring-boot:run
 ```
 
 ```bash
-curl -X 'GET' 'http://localhost:8080/api/company/6617441637a62d47a22e4808' -H 'accept: */*'
-```
-
-### Employees
-
-```bash
-curl -X 'POST' \
-  'http://localhost:8081/api/employee' \
-  -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "firstName": "Maxime",
-  "lastName": "Beugnet",
-  "company": "MongoDB",
-  "joined": "2018-02-12",
-  "salary": 54321
-}'
+cd company-service
+mvn clean spring-boot:run
 ```
 
 ```bash
-curl -X 'GET' 'http://localhost:8081/api/employees' -H 'accept: */*'
+cd employee-service
+mvn clean spring-boot:run
 ```
 
 ```bash
-curl -X 'GET' 'http://localhost:8081/api/employee/66175d38898ee935f384a4df' -H 'accept: */*'
+cd api-gateway
+mvn clean spring-boot:run
 ```
+
+## Test the REST APIs
+
+The `api-gateway` running on port 8080 can distribute the queries to the relevant microservices.
+
+You can test all the APIs using the script:
+
+```bash
+./2_api-tests.sh
+```
+
+> Note that the script is only targeting the port 8080 of the api-gateway.
