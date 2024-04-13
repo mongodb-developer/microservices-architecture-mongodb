@@ -7,12 +7,14 @@
     <artifactId>microservices</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+    <name>Microservices parent pom</name>
+    <description>Maven parent pom controlling all the modules</description>
 
     <properties>
         <java.version>21</java.version>
         <spring-boot.version>3.2.4</spring-boot.version>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
-        <mongodb.version>4.9.1</mongodb.version>
+        <mongodb.version>5.0.1</mongodb.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <springdoc-openapi-starter-webmvc-ui.version>2.5.0</springdoc-openapi-starter-webmvc-ui.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,7 +23,10 @@
 
     <modules>
         <module>company-service</module>
+        <module>employee-service</module>
         <module>config-server</module>
+        <module>service-registry</module>
+        <module>api-gateway</module>
     </modules>
 
     <dependencyManagement>

@@ -9,11 +9,11 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>company-service</artifactId>
+    <artifactId>employee-service</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>Company microservice</name>
-    <description>Company microservice powered by MongoDB</description>
+    <name>Employee microservice</name>
+    <description>Employee microservice powered by MongoDB</description>
 
     <dependencies>
         <dependency>

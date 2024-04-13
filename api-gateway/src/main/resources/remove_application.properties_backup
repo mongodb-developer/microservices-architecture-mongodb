@@ -1,0 +1,19 @@
+#server.port=8080
+#
+#spring.application.name=API Gateway
+#spring.cloud.gateway.routes[0].id=company-service
+#spring.cloud.gateway.routes[0].uri=lb://company-service
+#spring.cloud.gateway.routes[0].predicates[0]=Path=/api/compan*/**
+#
+#spring.cloud.gateway.routes[1].id=employee-service
+#spring.cloud.gateway.routes[1].uri=lb://employee-service
+#spring.cloud.gateway.routes[1].predicates[0]=Path=/api/employee*/**
+#
+#eureka.client.register-with-eureka=true
+#eureka.client.fetch-registry=true
+#eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+#
+#eureka.instance.hostname=localhost
+#
+#management.endpoint.gateway.enabled=true
+#management.endpoints.web.exposure.include=gateway
