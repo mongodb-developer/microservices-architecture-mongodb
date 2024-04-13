@@ -1,3 +1,0 @@
-[submodule "config-repo"]
-	path = config-repo
-	url = git@github.com:mongodb-developer/microservices-architecture-mongodb-config-repo.git
