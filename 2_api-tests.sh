@@ -62,9 +62,9 @@ delete_employees() {
   curl -sX DELETE 'http://localhost:8080/api/employees'
 }
 
-echo "Delete Companies"
+echo "DELETE Companies"
 delete_companies
-echo -e "\nDelete Employees"
+echo -e "\nDELETE Employees"
 delete_employees
 
 echo -e "\n\nPOST Company 'MongoDB'"
